@@ -1,3 +1,5 @@
+requests
+lxml
 numpy==1.24.3
 pandas==2.0.2
 beautifulsoup4==4.12.2
