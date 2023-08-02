@@ -2,6 +2,8 @@ import requests
 from bs4 import BeautifulSoup
 import pandas as pd
 import webbrowser
+
+
 url= 'https://www.pulzo.com/'
 pulzo = requests.get(url)
 
@@ -17,7 +19,7 @@ for clave, valor in links_secciones.items():
 f = open("index.html", "w")
 mensaje = f"""<html>
 <head></head>
-<body><ul>{noticias}<ul></body>
+<body><ol>{noticias}<ol></body>
 </html>"""
 
 f.write(mensaje)
