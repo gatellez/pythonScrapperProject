@@ -4,12 +4,17 @@ import pandas as pd
 import webbrowser
 
 
-url= 'https://www.pulzo.com/'
+url= 'https://www.larepublica.co/'
 pulzo = requests.get(url)
 
 s = BeautifulSoup(pulzo.text, 'lxml')
-secciones = s.find('div', attrs ={'class':'container-temsDay'}).find_all('div', attrs ={'class':'container-tag'})
-links_secciones = {seccion.a.get_text() : seccion.a.get("href") for seccion in secciones}
+secciones = s.find('ul', attrs ={'class':'tags'}).find_all('li')
+try:
+    links_secciones = {seccion.a.get_text() : seccion.a.get("href") for seccion in secciones if seccion.a }
+except:
+    pass
+
+
 
 noticias = " "
 for clave, valor in links_secciones.items():

@@ -6,21 +6,16 @@ import webbrowser
 
 def getRepublica():
     url= 'https://www.larepublica.co/'
-    pulzo = requests.get(url)
-    s = BeautifulSoup(pulzo.text, 'lxml')
-    secciones = s.find('div', attrs ={'class':'container-temsDay'}).find_all('div', attrs ={'class':'container-tag'})
-    links_secciones = {seccion.a.get_text() : seccion.a.get("href") for seccion in secciones}
+    republica = requests.get(url)
+    s = BeautifulSoup(republica.text, 'lxml')
+    secciones = s.find('ul', attrs ={'class':'tags'}).find_all('li')
+    links_secciones = {seccion.a.get_text() : seccion.a.get("href") for seccion in secciones if seccion.a }
     noticias = " "
     for clave, valor in links_secciones.items():
         noticias+=f"<li><a href='{valor}'>"+clave+"</a></li>" 
     f = open("index.html", "w")
-    mensaje = f"""<html>
-    <head></head>
-    <body><ol>{noticias}<ol></body>
-    </html>"""
-    f.write(mensaje)
-    f.close()
-    webbrowser.open_new_tab("index.html")
+    mensaje = f"""<ol>{noticias}<ol>"""
+    return links_secciones
 
 
 
